@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "browser-sync start --server --files *"
+  },
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "browser-sync": "^2.24.7"
+  }
+}
