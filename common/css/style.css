@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+body {
+  margin: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+#contents {
+  position: relative;
+}
+
+#notSupportedDescription {
+  display: none;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+}
+
+#svgContainer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+}
+
+#guiContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

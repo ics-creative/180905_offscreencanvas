@@ -59,3 +59,5 @@ class HeavyRendering2D {
     }
   }
 }
+
+self.HeavyRendering2D = HeavyRendering2D;

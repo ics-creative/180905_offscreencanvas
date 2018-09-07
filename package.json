@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start-2d": "browser-sync start --server --files * --startPath offscreencanvas-2d/index.html",
+    "start-3d": "browser-sync start --server --files * --startPath offscreencanvas-3d/index.html"
+  },
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "browser-sync": "^2.24.7"
+  }
+}

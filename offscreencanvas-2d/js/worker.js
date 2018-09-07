@@ -18,7 +18,7 @@ class WorkerMain {
   }
 }
 
-workerMain = null;
+let workerMain = null;
 onmessage = (event) => {
   switch (event.data.type) {
     case 'init':

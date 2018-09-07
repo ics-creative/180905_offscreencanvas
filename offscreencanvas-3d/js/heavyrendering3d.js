@@ -66,3 +66,5 @@ class HeavyRendering3D {
     this.renderer.render(this.scene, this.camera);
   }
 }
+
+self.HeavyRendering3D = HeavyRendering3D;
