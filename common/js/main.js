@@ -34,7 +34,7 @@ export class Main {
     // OffscreenCanvasに対応していない環境の場合
     if (!canvas.transferControlToOffscreen) {
       canvas.style.display = 'none';
-      document.getElementById('btn').style.display = 'none';
+      document.getElementById('svgContainer').style.display = 'none';
       document.getElementById('notSupportedDescription').style.display = 'block';
       return;
     }
