@@ -1,4 +1,14 @@
+/**
+ * Canvasにレンダリングを行う処理です。
+ * メイン/Workerどちらのスレッドからでも使用できるようになっています。
+ */
 class HeavyRendering3D {
+
+  /**
+   * コンストラクタです。
+   *
+   * @param canvas Canvasオブジェクト、もしくはOffscreenCanvasオブジェクト
+   */
   constructor(canvas) {
     this.canvas = canvas;
     this.stageWidth = this.canvas.width;
@@ -13,7 +23,12 @@ class HeavyRendering3D {
     this.phi = 0.0;
     this.cameraTarget = null;
 
-    this.canvas.style = {width: 0, height: 0};
+    if (!this.canvas.style) {
+      // Three.jsは内部でCanvas要素のstyleにアクセスする
+      // Workerスレッドで使用する場合、OffscreenCanvasにはstyleがないため明示的に設定する
+      this.canvas.style = {width: 0, height: 0};
+    }
+
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas
     });
@@ -26,8 +41,14 @@ class HeavyRendering3D {
     this.geometry = new THREE.CubeGeometry(10, 10, 10, 1, 1, 1);
   };
 
+  /**
+   * メッシュを初期化します。
+   *
+   * @param num メッシュ数
+   */
   iinitMeshList(num) {
     if (this.meshList) {
+      // すでにあるメッシュを全て破棄する
       const length = this.meshList.length;
       for (let i = 0; i < length; i++) {
         const mesh = this.meshList[i];
@@ -52,10 +73,18 @@ class HeavyRendering3D {
     }
   }
 
+  /**
+   * レンダラーの設定を更新します。
+   *
+   * @param value 更新プロパティ
+   */
   update(value) {
     this.iinitMeshList(value);
   }
 
+  /**
+   * 画面を描画します。
+   */
   render() {
     this.theta += 0.01;
     this.phi += 0.01;
@@ -67,4 +96,6 @@ class HeavyRendering3D {
   }
 }
 
+// HeavyRendering3Dクラスをスコープに展開する。
+// selfはメインスレッドではWindow、WorkerスレッドではDedicatedWorkerGlobalScopeになる
 self.HeavyRendering3D = HeavyRendering3D;

@@ -1,4 +1,14 @@
+/**
+ * Canvasにレンダリングを行う処理です。
+ * メイン/Workerどちらのスレッドからでも使用できるようになっています。
+ */
 class HeavyRendering2D {
+
+  /**
+   * コンストラクタです。
+   *
+   * @param canvas Canvasオブジェクト、もしくはOffscreenCanvasオブジェクト
+   */
   constructor(canvas) {
     this.canvas = canvas;
     this.context = this.canvas.getContext('2d');
@@ -8,6 +18,11 @@ class HeavyRendering2D {
     this.particleList = [];
   };
 
+  /**
+   * パーティクルを初期化します。
+   *
+   * @param num パーティクル数
+   */
   initParticleList(num) {
     this.particleList = [];
 
@@ -26,10 +41,18 @@ class HeavyRendering2D {
     }
   }
 
+  /**
+   * レンダラーの設定を更新します。
+   *
+   * @param value 更新プロパティ
+   */
   update(value) {
     this.initParticleList(value);
   }
 
+  /**
+   * 画面を描画します。
+   */
   render() {
     this.drawPraticle();
   }
@@ -60,4 +83,6 @@ class HeavyRendering2D {
   }
 }
 
+// HeavyRendering2Dクラスをスコープに展開する。
+// selfはメインスレッドではWindow、WorkerスレッドではDedicatedWorkerGlobalScopeになる
 self.HeavyRendering2D = HeavyRendering2D;
