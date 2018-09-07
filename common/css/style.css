@@ -33,3 +33,10 @@ canvas {
   top: 0;
   right: 0;
 }
+
+#svgContainer p{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
