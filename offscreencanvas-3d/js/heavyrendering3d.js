@@ -38,7 +38,7 @@ class HeavyRendering3D {
     this.camera.position.set(0, 0, 1000);
     this.cameraTarget = new THREE.Vector3(0, 0, 0);
 
-    this.geometry = new THREE.CubeGeometry(10, 10, 10, 1, 1, 1);
+    this.geometry = new THREE.BoxGeometry(10, 10, 10, 1, 1, 1);
   };
 
   /**
