@@ -1,5 +1,5 @@
 // Workerでの処理に必要な外部スクリプトを読み込む
-importScripts('https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js');
+importScripts('https://unpkg.com/three@0.150.1/build/three.js');
 importScripts('heavyrendering3d.js');
 
 /**

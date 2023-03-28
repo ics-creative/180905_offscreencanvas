@@ -6,6 +6,6 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "browser-sync": "^2.24.7"
+    "browser-sync": "^2.29.1"
   }
 }

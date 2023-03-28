@@ -56,12 +56,12 @@ export class Main {
     document.getElementById('contents').appendChild(this.stats.domElement);
 
     // UIの初期化
-    var GUI = function () {
+    const GUI = function () {
       this.num = 30000;
     };
     const data = new GUI();
 
-    var gui = new dat.GUI({autoPlace: false});
+    const gui = new dat.GUI({autoPlace: false});
     const numSlider = gui.add(data, 'num', 500, 30000).step(500);
     numSlider.onFinishChange((value) => {
       if (this.useWorker) {
