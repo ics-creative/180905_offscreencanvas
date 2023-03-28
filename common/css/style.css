@@ -41,3 +41,12 @@ canvas {
   width: 100%;
   text-align: center;
 }
+
+.onOff {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 4px 8px;
+  background-color: white;
+  border-radius: 6px 0 0 0 ;
+}
