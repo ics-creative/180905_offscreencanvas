@@ -1,11 +1,13 @@
 {
   "scripts": {
     "start-2d": "browser-sync start --server --files * --startPath offscreencanvas-2d/index.html",
-    "start-3d": "browser-sync start --server --files * --startPath offscreencanvas-3d/index.html"
+    "start-3d": "browser-sync start --server --files * --startPath offscreencanvas-3d/index.html",
+    "format": "prettier --write \"**/*.{js,html,css}\""
   },
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "browser-sync": "^2.29.1"
+    "browser-sync": "^2.29.1",
+    "prettier": "^2.8.8"
   }
 }

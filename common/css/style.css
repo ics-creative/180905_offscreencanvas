@@ -35,7 +35,7 @@ canvas {
   right: 0;
 }
 
-#svgContainer p{
+#svgContainer p {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -48,5 +48,5 @@ canvas {
   right: 0;
   padding: 4px 8px;
   background-color: white;
-  border-radius: 6px 0 0 0 ;
+  border-radius: 6px 0 0 0;
 }

@@ -3,7 +3,6 @@
  * メイン/Workerどちらのスレッドからでも使用できるようになっています。
  */
 class HeavyRendering2D {
-
   /**
    * コンストラクタです。
    *
@@ -11,12 +10,12 @@ class HeavyRendering2D {
    */
   constructor(canvas) {
     this.canvas = canvas;
-    this.context = this.canvas.getContext('2d');
-    this.context.globalCompositeOperation = 'lighter';
+    this.context = this.canvas.getContext("2d");
+    this.context.globalCompositeOperation = "lighter";
     this.stageWidth = this.canvas.width;
     this.stageHeight = this.canvas.height;
     this.particleList = [];
-  };
+  }
 
   /**
    * パーティクルを初期化します。
@@ -29,15 +28,13 @@ class HeavyRendering2D {
     const SPEED = 5;
     for (let i = 0; i < num; i++) {
       const vr = Math.PI * 2 * Math.random();
-      this.particleList.push(
-        {
-          x: this.stageWidth * Math.random(),
-          y: this.stageHeight * Math.random(),
-          vx: SPEED * Math.cos(vr),
-          vy: SPEED * Math.sin(vr),
-          color: `hsl(${Math.floor(360 * Math.random())}, 70%, 40%)`
-        }
-      );
+      this.particleList.push({
+        x: this.stageWidth * Math.random(),
+        y: this.stageHeight * Math.random(),
+        vx: SPEED * Math.cos(vr),
+        vy: SPEED * Math.sin(vr),
+        color: `hsl(${Math.floor(360 * Math.random())}, 70%, 40%)`,
+      });
     }
   }
 

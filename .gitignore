@@ -12,3 +12,4 @@ node_modules
 !*.gitkeep
 yarn.lock
 package-lock.json
+/yarn-error.log

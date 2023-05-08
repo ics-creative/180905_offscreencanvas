@@ -1,17 +1,16 @@
-import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.js';
+import Stats from "https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.js";
 
 /**
  * メインスレッドで動作する共通処理です。
  */
 export class Main {
-
   /**
    * コンストラクタです。
    *
    * @param renderingClass {Class} レンダリングに使用するクラス
    * @param mode {"2d" | "webgl"} レンダリングに使用するクラス
    */
-  constructor(renderingClass, mode ) {
+  constructor(renderingClass, mode) {
     this.useWorker = true;
     this.stats = null;
     this.renderingClass = renderingClass;
@@ -19,25 +18,26 @@ export class Main {
     this.worker = null;
     this.mode = mode;
     this.init();
-  };
+  }
 
   init() {
     // ハッシュ値によってOffscreenCanvasおよびWorkerの有効/無効を設定
     if (location.hash) {
-      const hashValue = location.hash.split('#').join('');
-      this.useWorker = hashValue === 'on';
+      const hashValue = location.hash.split("#").join("");
+      this.useWorker = hashValue === "on";
     }
 
     // Canvas要素を取得
-    const canvas = document.getElementById('myCanvas');
+    const canvas = document.getElementById("myCanvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     const showNotSupport = () => {
-      canvas.style.display = 'none';
-      document.getElementById('svgContainer').style.display = 'none';
-      document.getElementById('notSupportedDescription').style.display = 'block';
-    }
+      canvas.style.display = "none";
+      document.getElementById("svgContainer").style.display = "none";
+      document.getElementById("notSupportedDescription").style.display =
+        "block";
+    };
 
     // OffscreenCanvasに対応していない環境の場合
     if (!canvas.transferControlToOffscreen) {
@@ -45,39 +45,36 @@ export class Main {
       return;
     }
 
-    if(this.mode === "webgl"){
+    if (this.mode === "webgl") {
       // OffscreenCanvasに対応しているがWebGLに対応しているかの確認
       {
         const canvas = document.createElement("canvas");
         const offscreenCanvas = canvas.transferControlToOffscreen();
         const gl = offscreenCanvas.getContext("webgl");
 
-        const enableWebGL =  gl != null;
-        if(enableWebGL === false){
+        const enableWebGL = gl != null;
+        if (enableWebGL === false) {
           showNotSupport();
           return;
         }
       }
     }
 
-
-
-
     // ハートボタンの初期化
-    const btn = document.getElementById('btn');
+    const btn = document.getElementById("btn");
     let clicked = false;
-    btn.addEventListener('click', () => {
+    btn.addEventListener("click", () => {
       if (clicked) {
-        btn.classList.remove('clicked');
+        btn.classList.remove("clicked");
       } else {
-        btn.classList.add('clicked');
+        btn.classList.add("clicked");
       }
       clicked = !clicked;
     });
 
     // Statsの初期化
     this.stats = new Stats();
-    document.getElementById('contents').appendChild(this.stats.domElement);
+    document.getElementById("contents").appendChild(this.stats.domElement);
 
     // UIの初期化
     const GUI = function () {
@@ -85,20 +82,20 @@ export class Main {
     };
     const data = new GUI();
 
-    const gui = new dat.GUI({autoPlace: false});
-    const numSlider = gui.add(data, 'num', 500, 60000).step(500);
+    const gui = new dat.GUI({ autoPlace: false });
+    const numSlider = gui.add(data, "num", 500, 60000).step(500);
     numSlider.onFinishChange((value) => {
       if (this.useWorker) {
         // Workerスレッドでレンダリングする場合
 
         // Workerに変更する値を渡す
-        this.worker.postMessage({type: 'update', num: value});
+        this.worker.postMessage({ type: "update", num: value });
       } else {
         // メインスレッドでレンダリングする場合
         this.renderer.update(value);
       }
     });
-    document.getElementById('guiContainer').appendChild(gui.domElement);
+    document.getElementById("guiContainer").appendChild(gui.domElement);
 
     // レンダラーの初期化
     if (this.useWorker) {
@@ -108,11 +105,14 @@ export class Main {
       const offscreenCanvas = canvas.transferControlToOffscreen();
 
       // Workerを作成し、OffscreenCanvasを渡す
-      this.worker = new Worker('js/worker.js');
-      this.worker.postMessage({type: 'init', canvas: offscreenCanvas, num: data.num}, [offscreenCanvas]);
+      this.worker = new Worker("js/worker.js");
+      this.worker.postMessage(
+        { type: "init", canvas: offscreenCanvas, num: data.num },
+        [offscreenCanvas]
+      );
     } else {
       // メインスレッドでレンダリングする場合
-      this.renderer = new (this.renderingClass)(canvas);
+      this.renderer = new this.renderingClass(canvas);
       this.renderer.update(data.num);
     }
 
@@ -129,6 +129,6 @@ export class Main {
 
     this.stats.end();
 
-    requestAnimationFrame(() => this.render())
+    requestAnimationFrame(() => this.render());
   }
 }

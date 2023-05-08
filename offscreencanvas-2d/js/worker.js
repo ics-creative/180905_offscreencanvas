@@ -1,11 +1,10 @@
 // Workerでの処理に必要な外部スクリプトを読み込む
-importScripts('heavyrendering2d.js');
+importScripts("heavyrendering2d.js");
 
 /**
  * Workerスレッドで動作する処理です。
  */
 class WorkerMain {
-
   /**
    * コンストラクタです。
    *
@@ -15,7 +14,7 @@ class WorkerMain {
     this.renderer = new HeavyRendering2D(canvas);
 
     this.render();
-  };
+  }
 
   /**
    * レンダラーの設定を更新します。
@@ -42,14 +41,14 @@ let workerMain = null;
 onmessage = (event) => {
   // メインスレッドから渡されたtypeに応じて処理を分岐
   switch (event.data.type) {
-    case 'init':
+    case "init":
       // Workerの処理を初期化
       workerMain = new WorkerMain(event.data.canvas);
 
       // レンダラーの設定を更新
       workerMain.update(event.data.num);
       break;
-    case 'update':
+    case "update":
       // レンダラーの設定を更新
       workerMain.update(event.data.num);
       break;
