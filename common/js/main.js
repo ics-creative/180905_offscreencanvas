@@ -8,14 +8,16 @@ export class Main {
   /**
    * コンストラクタです。
    *
-   * @param renderingClass レンダリングに使用するクラス
+   * @param renderingClass {Class} レンダリングに使用するクラス
+   * @param mode {"2d" | "webgl"} レンダリングに使用するクラス
    */
-  constructor(renderingClass) {
+  constructor(renderingClass, mode ) {
     this.useWorker = true;
     this.stats = null;
     this.renderingClass = renderingClass;
     this.renderer = null;
     this.worker = null;
+    this.mode = mode;
     this.init();
   };
 
@@ -31,13 +33,35 @@ export class Main {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // OffscreenCanvasに対応していない環境の場合
-    if (!canvas.transferControlToOffscreen) {
+    const showNotSupport = () => {
       canvas.style.display = 'none';
       document.getElementById('svgContainer').style.display = 'none';
       document.getElementById('notSupportedDescription').style.display = 'block';
+    }
+
+    // OffscreenCanvasに対応していない環境の場合
+    if (!canvas.transferControlToOffscreen) {
+      showNotSupport();
       return;
     }
+
+    if(this.mode === "webgl"){
+      // OffscreenCanvasに対応しているがWebGLに対応しているかの確認
+      {
+        const canvas = document.createElement("canvas");
+        const offscreenCanvas = canvas.transferControlToOffscreen();
+        const gl = offscreenCanvas.getContext("webgl");
+
+        const enableWebGL =  gl != null;
+        if(enableWebGL === false){
+          showNotSupport();
+          return;
+        }
+      }
+    }
+
+
+
 
     // ハートボタンの初期化
     const btn = document.getElementById('btn');

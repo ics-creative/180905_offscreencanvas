@@ -7,7 +7,7 @@ class HeavyRendering3D {
   /**
    * コンストラクタです。
    *
-   * @param canvas Canvasオブジェクト、もしくはOffscreenCanvasオブジェクト
+   * @param canvas {HTMLCanvasElement} Canvasオブジェクト、もしくはOffscreenCanvasオブジェクト
    */
   constructor(canvas) {
     this.canvas = canvas;
@@ -44,9 +44,9 @@ class HeavyRendering3D {
   /**
    * メッシュを初期化します。
    *
-   * @param num メッシュ数
+   * @param num {number} メッシュ数
    */
-  iinitMeshList(num) {
+  initMeshList(num) {
     if (this.meshList) {
       // すでにあるメッシュを全て破棄する
       const length = this.meshList.length;
@@ -79,7 +79,7 @@ class HeavyRendering3D {
    * @param value 更新プロパティ
    */
   update(value) {
-    this.iinitMeshList(value);
+    this.initMeshList(value);
   }
 
   /**
